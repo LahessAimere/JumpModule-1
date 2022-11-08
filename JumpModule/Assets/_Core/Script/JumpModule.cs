@@ -1,18 +1,48 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class JumpModule : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Set Input")]
+    [SerializeField, Space] KeyCode ToJump = KeyCode.Space;
+    [Header("Set setting to jump")]
+    [SerializeField] int Layer;
+    [SerializeField] int CountJump = 1;
+    [SerializeField, Space] float JumpForce = 1.5f;
+    [Header("Player Components")]
+    [SerializeField] Rigidbody rb;
+    [SerializeField] Collider colliders;
+    
+    int count = 0;
+    bool touchFloor = false;
+
+    private void Start()
     {
+        // Verify to colliders and Rigidbody
+        if(colliders) return;
+        Debug.LogError("Error Missing Collider !");
+        if(rb) return;
+        Debug.LogError("Error Missing Rigidbody !");
+    }
+    private void Update()
+    {
+        if(Input.GetKeyDown(ToJump) && count <= CountJump)
+        {
+            // Add force for jump
+            rb.AddForce(transform.up * JumpForce);
+            count++;
+        }
         
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        
+        // Detection collision
+        if(collision.gameObject.layer == Layer)
+        {
+            touchFloor = true;
+            count = 0;
+        }else
+        {
+            touchFloor = false;
+        }
     }
 }
