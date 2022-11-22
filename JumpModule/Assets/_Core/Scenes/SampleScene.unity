@@ -430,7 +430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ToJump: 32
-  Floor: 6
+  Layer: 6
   CountJump: 1
   JumpForce: 200
   rb: {fileID: 1435121582}

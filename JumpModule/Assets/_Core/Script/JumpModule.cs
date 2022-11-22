@@ -5,7 +5,7 @@ public class JumpModule : MonoBehaviour
     [Header("Set Input")]
     [SerializeField, Space] KeyCode ToJump = KeyCode.Space;
     [Header("Set setting to jump")]
-    [SerializeField] int Layer;
+    [SerializeField] int Layer = 6;
     [SerializeField] int CountJump = 1;
     [SerializeField, Space] float JumpForce = 1.5f;
     [Header("Player Components")]
@@ -25,7 +25,7 @@ public class JumpModule : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.GetKeyDown(ToJump) && count <= CountJump)
+        if(Input.GetKeyDown(ToJump) && count <= CountJump && touchFloor == true)
         {
             // Add force for jump
             rb.AddForce(transform.up * JumpForce);
