@@ -10,22 +10,18 @@ public class JumpModule : MonoBehaviour
     [SerializeField, Space] float JumpForce = 1.5f;
     [Header("Player Components")]
     [SerializeField] Rigidbody rb;
-    [SerializeField] Collider colliders;
     
     int count = 0;
-    bool touchFloor = false;
 
     private void Start()
     {
-        // Verify to colliders and Rigidbody
-        if(colliders) return;
-        Debug.LogError("Error Missing Collider !");
+        // Verify to Rigidbody
         if(rb) return;
         Debug.LogError("Error Missing Rigidbody !");
     }
     private void Update()
     {
-        if(Input.GetKeyDown(ToJump) && count <= CountJump && touchFloor == true)
+        if(Input.GetKeyDown(ToJump) && count < CountJump )
         {
             // Add force for jump
             rb.AddForce(transform.up * JumpForce);
@@ -38,11 +34,8 @@ public class JumpModule : MonoBehaviour
         // Detection collision
         if(collision.gameObject.layer == Layer)
         {
-            touchFloor = true;
+
             count = 0;
-        }else
-        {
-            touchFloor = false;
         }
     }
 }
